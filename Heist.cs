@@ -32,10 +32,15 @@ namespace heist
             Console.WriteLine($"Your {crew.Roster.Count}-Person Crew:");
             Console.WriteLine(crew);
             crew.SkillLevel = 0;
+            bankDifficulty += crew.HeistLuck;
             foreach (TeamMember member in crew.Roster)
             {
                 crew.SkillLevel += member.SkillLevel;
             }
+
+            Console.WriteLine($"Bank Difficulty: {bankDifficulty}");
+            Console.WriteLine($"Team Combined Skill: {crew.SkillLevel}");
+
             if (crew.SkillLevel >= bankDifficulty)
             {
                 Console.WriteLine("HEIST SUCCESS!");
@@ -92,6 +97,15 @@ namespace heist
             public List<TeamMember> Roster { get; set; }
 
             public int SkillLevel { get; set; }
+
+            public int HeistLuck
+            {
+                get
+                {
+                    int HeistLuck = new Random().Next(-10, 11);
+                    return HeistLuck;
+                }
+            }
 
             public override string ToString()
             {
