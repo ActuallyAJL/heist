@@ -9,6 +9,7 @@ namespace heist
         {
             Console.WriteLine("Plan Your Heist!");
             string entry = "template";
+            int bankDifficulty = 100;
             Team crew = new Team();
             crew.Roster = new List<TeamMember>();
             while (entry != "")
@@ -23,14 +24,26 @@ namespace heist
                 thisMember.Name = entry;
                 Console.WriteLine($"What is {thisMember.Name}'s Skill Level (positive integer)?");
                 thisMember.SkillLevel = int.Parse(Console.ReadLine());
+                if (thisMember.SkillLevel > 9000) { Console.WriteLine("It's over 9000!!!!!!!!!!"); }
                 Console.WriteLine($"What is {thisMember.Name}'s Courage Factor (decimal between 0.0 and 2.0)?");
                 thisMember.CourageFactor = Double.Parse(Console.ReadLine());
-                Console.WriteLine("Your Team Member:");
-                Console.WriteLine(thisMember);
                 crew.Roster.Add(thisMember);
             }
             Console.WriteLine($"Your {crew.Roster.Count}-Person Crew:");
             Console.WriteLine(crew);
+            crew.SkillLevel = 0;
+            foreach (TeamMember member in crew.Roster)
+            {
+                crew.SkillLevel += member.SkillLevel;
+            }
+            if (crew.SkillLevel >= bankDifficulty)
+            {
+                Console.WriteLine("HEIST SUCCESS!");
+            }
+            else
+            {
+                Console.WriteLine("WASTED!");
+            }
         }
 
         public class TeamMember
@@ -77,6 +90,8 @@ namespace heist
         public class Team
         {
             public List<TeamMember> Roster { get; set; }
+
+            public int SkillLevel { get; set; }
 
             public override string ToString()
             {
