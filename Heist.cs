@@ -11,6 +11,7 @@ namespace heist
             string entry = "template";
             int bankDifficulty = 100;
             Team crew = new Team();
+            Heist job = new Heist();
             crew.Roster = new List<TeamMember>();
             while (entry != "")
             {
@@ -32,7 +33,7 @@ namespace heist
             Console.WriteLine($"Your {crew.Roster.Count}-Person Crew:");
             Console.WriteLine(crew);
             crew.SkillLevel = 0;
-            bankDifficulty += crew.HeistLuck;
+            bankDifficulty += job.Luck;
             foreach (TeamMember member in crew.Roster)
             {
                 crew.SkillLevel += member.SkillLevel;
@@ -98,15 +99,6 @@ namespace heist
 
             public int SkillLevel { get; set; }
 
-            public int HeistLuck
-            {
-                get
-                {
-                    int HeistLuck = new Random().Next(-10, 11);
-                    return HeistLuck;
-                }
-            }
-
             public override string ToString()
             {
                 string myTeamString = "";
@@ -115,6 +107,16 @@ namespace heist
                     myTeamString += $"{tm.Name}: Skill Level-{tm.SkillLevel}, Courage Factor-{tm.CourageFactor}\n";
                 }
                 return myTeamString;
+            }
+        }
+
+        public class Heist
+        {
+            public int Luck { get; set; }
+
+            public Heist()
+            {
+                Luck = new Random().Next(-10, 11);
             }
         }
     }
